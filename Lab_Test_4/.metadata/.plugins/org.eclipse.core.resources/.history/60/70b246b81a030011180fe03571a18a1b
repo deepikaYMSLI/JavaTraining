@@ -1,0 +1,46 @@
+package com.employeeapp.service;
+
+import com.employeeapp.entities.Department;
+import com.employeeapp.exceptions.ResouceNotFoundException;
+import com.employeeapp.repo.DepartmentRepo;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service
+@Transactional
+public class DepartmentService {
+
+    private final DepartmentRepo departmentRepo;
+
+    public DepartmentService(DepartmentRepo departmentRepo) {
+        this.departmentRepo = departmentRepo;
+    }
+
+    public List<Department> getAllDepartments() {
+        return departmentRepo.findAll();
+    }
+
+    public Department getDepartmentById(int id) {
+        return departmentRepo.findById(id)
+                .orElseThrow(() ->
+                        new ResouceNotFoundException(
+                                "Department not found with id " + id
+                        )
+                );
+    }
+
+    public List<Department> getDepartmentsWithEmployees() {
+        return departmentRepo.findAll();
+    }
+
+    public Department saveDepartment(Department department) {
+        return departmentRepo.save(department);
+    }
+
+    public void deleteDepartment(int id) {
+        Department dept = getDepartmentById(id);
+        departmentRepo.delete(dept);
+    }
+}

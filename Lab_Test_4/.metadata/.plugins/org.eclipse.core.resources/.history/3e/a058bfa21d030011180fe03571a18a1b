@@ -1,0 +1,33 @@
+
+package com.employeeapp.controller;
+
+import com.employeeapp.entities.Department;
+import com.employeeapp.exceptions.ResouceNotFoundException;
+import com.employeeapp.service.DepartmentService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+public class DeptController {
+
+    private final DepartmentService departmentService;
+
+    public DeptController(DepartmentService departmentService) {
+        this.departmentService = departmentService;
+    }
+
+    // GET /departments
+    @GetMapping("/departments")
+    public List<Department> findAll() {
+        return departmentService.findAll();
+    }
+
+    // GET /departments/{id}
+    @GetMapping("/departments/{id}")
+    public Department findById(@PathVariable int id) {
+        return departmentService.findById(id);
+    }
+}

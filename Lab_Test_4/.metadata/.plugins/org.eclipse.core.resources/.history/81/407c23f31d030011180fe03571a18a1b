@@ -1,0 +1,40 @@
+package com.employeeapp.service;
+
+import com.employeeapp.entities.Employee;
+import com.employeeapp.exceptions.ResouceNotFoundException;
+import com.employeeapp.repo.EmployeeRepo;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service
+@Transactional
+public class EmployeeService {
+
+    private final EmployeeRepo employeeRepo;
+
+    public EmployeeService(EmployeeRepo employeeRepo) {
+        this.employeeRepo = employeeRepo;
+    }
+
+    public List<Employee> getAllEmployees() {
+        return employeeRepo.findAll();
+    }
+
+    public Employee getEmployeeById(int id) {
+        return employeeRepo.findById(id)
+                .orElseThrow(() -> new ResouceNotFoundException(
+                        "Employee not found with id " + id
+                ));
+    }
+
+    public Employee saveEmployee(Employee employee) {
+        return employeeRepo.save(employee);
+    }
+
+    public void deleteEmployee(int id) {
+        Employee emp = getEmployeeById(id);
+        employeeRepo.delete(emp);
+    }
+}

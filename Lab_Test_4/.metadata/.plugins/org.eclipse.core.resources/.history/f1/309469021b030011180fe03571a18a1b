@@ -1,0 +1,25 @@
+@Service
+@Transactional
+public class DepartmentService {
+
+    private final DepartmentRepo departmentRepo;
+
+    public DepartmentService(DepartmentRepo departmentRepo) {
+        this.departmentRepo = departmentRepo;
+    }
+
+    public List<Department> findAll() {
+        return departmentRepo.findAll();
+    }
+
+    public Department findById(int id) {
+        return departmentRepo.findById(id)
+                .orElseThrow(() ->
+                        new ResouceNotFoundException("Department not found")
+                );
+    }
+
+    public List<Department> findAllWithEmployees() {
+        return departmentRepo.findAllWithEmployees();
+    }
+}
