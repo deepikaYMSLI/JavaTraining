@@ -1,0 +1,111 @@
+package com.ymsli.bank.inhouse.model;
+
+import com.ymsli.bank.inhouse.model.enums.TransactionStatus;
+import com.ymsli.bank.inhouse.model.enums.TransactionType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "transactions")
+public class Transaction {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String accountNumber;
+    private String fromAccountNumber;
+    private String toAccountNumber;
+
+    @Enumerated(EnumType.STRING)
+    private TransactionType type;
+
+    private Double amount;
+
+    @Enumerated(EnumType.STRING)
+    private TransactionStatus status;
+
+    private LocalDateTime transactionTime;
+
+    private Long performedBy;
+    private Long approvedBy;
+
+    public Long getId() {
+        return id;
+    }
+ 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+ 
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+    
+    public String getFromAccountNumber() {
+        return fromAccountNumber;
+    }
+ 
+    public void setFromAccountNumber(String fromAccountNumber) {
+        this.fromAccountNumber = fromAccountNumber;
+    }
+
+    public TransactionType getType() {
+        return type;
+    }
+ 
+    public void setType(TransactionType type) {
+        this.type = type;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+ 
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public TransactionStatus getStatus() {
+        return status;
+    }
+ 
+    public void setStatus(TransactionStatus status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getTransactionTime() {
+        return transactionTime;
+    }
+ 
+    public void setTransactionTime(LocalDateTime transactionTime) {
+        this.transactionTime = transactionTime;
+    }
+
+    public Long getPerformedBy() {
+        return performedBy;
+    }
+ 
+    public void setPerformedBy(Long performedBy) {
+        this.performedBy = performedBy;
+    }
+
+    public Long getApprovedBy() {
+        return approvedBy;
+    }
+ 
+    public void setApprovedBy(Long approvedBy) {
+        this.approvedBy = approvedBy;
+    }
+}

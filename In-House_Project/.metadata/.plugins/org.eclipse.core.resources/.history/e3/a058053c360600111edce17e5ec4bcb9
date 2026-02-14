@@ -1,0 +1,28 @@
+package com.ymsli.bank.inhouse.dto;
+
+public class ApprovalRequest {
+	private Long transactionId;
+	private Long managerId;
+	private boolean approved;
+	
+	public Long getTransactionId() {
+		return transactionId;
+	}
+	
+	public void setTransactionId(Long transactionId) {
+		this.transactionId= transactionId;
+	}
+	public Long getManagerId() {
+		return managerId;
+	}
+	public void setmanagerId() {
+		this.managerId= managerId;
+	}
+	public boolean isApproved() {
+		return approved;
+	}
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+
+}

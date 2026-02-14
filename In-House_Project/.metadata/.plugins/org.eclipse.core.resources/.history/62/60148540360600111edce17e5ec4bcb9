@@ -1,0 +1,8 @@
+package com.ymsli.bank.inhouse.exceptions;
+
+public class InvalidTransactionStateException extends BankException{
+	public InvalidTransactionStateException(String msg) {
+		super(msg);
+	}
+
+}

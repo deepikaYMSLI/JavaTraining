@@ -1,0 +1,81 @@
+package com.ymsli.bank.inhouse.controller;
+import com.ymsli.bank.inhouse.service.impl.TransactionServiceImpl;
+
+import lombok.RequiredArgsConstructor;
+
+import com.ymsli.bank.inhouse.dto.ApprovalRequest;
+import com.ymsli.bank.inhouse.dto.DepositRequestDto;
+import com.ymsli.bank.inhouse.dto.TransferRequest;
+import com.ymsli.bank.inhouse.dto.WithdrawRequestDto;
+import com.ymsli.bank.inhouse.model.Transaction;
+import com.ymsli.bank.inhouse.repository.TransactionRepository;
+import com.ymsli.bank.inhouse.service.TransactionService;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/transactions")
+@RequiredArgsConstructor
+public class TransactionController {
+
+    private TransactionRepository transactionRepository;
+    private TransactionService transactionService;
+    public TransactionController(TransactionService transactionService) {
+    	this.transactionService=transactionService;
+    	this.transactionRepository= transactionRepository;
+    }
+
+    @PostMapping("/deposit")
+    public String deposit(@RequestBody DepositRequestDto request) {
+        transactionService.deposit(
+                request.getAccountNumber(),
+                request.getAmount(),
+                request.getClerkId()
+        );
+        return "Deposit successful";
+    }
+
+    @PostMapping("/withdraw")
+    public String withdraw(@RequestBody WithdrawRequestDto request) {
+        transactionService.withdraw(
+                request.getAccountNumber(),
+                request.getAmount(),
+                request.getClerkId()
+        );
+        return "Withdrawal processed";
+    }
+    
+    
+    @PostMapping("/transfer")
+    public String transfer(@RequestBody TransferRequest request) {
+        transactionService.transfer(request.getFromAccountNumber(),
+        		request.getToAccountNumber(),
+        		request.getAmount(),
+        		request.getClerkId());
+        return "Transfer processed";
+    }
+    
+    
+    @PostMapping("/approve")
+    public String approve(@RequestBody ApprovalRequest request) {
+        transactionService.approveTransaction(
+                request.getTransactionId(),
+                request.getManagerId(),
+                request.isApproved()
+        );
+        return "Approval processed";
+    }
+    
+    @GetMapping("/pending")
+    public List<Transaction> getPendingApprovals(){
+    	return transactionService.getPendingApprovals();
+    }
+    
+    @GetMapping("/all-debug")
+    public List<Transaction> allDebug(){
+    	return transactionRepository.findAll();
+    }
+}
