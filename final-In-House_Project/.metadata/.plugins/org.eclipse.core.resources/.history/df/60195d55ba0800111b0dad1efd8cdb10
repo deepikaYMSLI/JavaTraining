@@ -1,0 +1,27 @@
+package com.ymsli.bank.inhouse.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ApiResponse<T> {
+    private boolean success;   // true if operation succeeded
+    private String message;    // success/failure message
+    private T data;            // optional payload, e.g., created object, transaction info
+
+    // static helper methods for convenience
+    public static <T> ApiResponse<T> success(String message, T data) {
+        return new ApiResponse<>(true, message, data);
+    }
+
+    public static <T> ApiResponse<T> success(String message) {
+        return new ApiResponse<>(true, message, null);
+    }
+
+    public static <T> ApiResponse<T> failure(String message) {
+        return new ApiResponse<>(false, message, null);
+    }
+}

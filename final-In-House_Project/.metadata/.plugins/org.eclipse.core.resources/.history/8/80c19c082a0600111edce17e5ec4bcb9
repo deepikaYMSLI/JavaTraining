@@ -1,0 +1,11 @@
+package com.ymsli.bank.inhouse.service;
+import com.ymsli.bank.inhouse.dto.*;
+//import com.ymsli.bank.inhouse.service.impl.TransferRequest;
+
+ppublic interface TransactionService {
+    void deposit(String acc, Double amt, Long clerkId);
+    void withdraw(String acc, Double amt, Long clerkId);
+    void transfer(String from, String to, Double amt, Long clerkId);
+    void approveTransaction(Long txnId, Long managerId, boolean approved);
+}
+

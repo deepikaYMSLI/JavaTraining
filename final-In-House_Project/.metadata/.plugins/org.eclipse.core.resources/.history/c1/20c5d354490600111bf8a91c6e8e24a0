@@ -1,0 +1,40 @@
+package com.ymsli.bank.inhouse.aop;
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.stereotype.Component;
+import org.aspectj.lang.annotation.Before;
+@Aspect
+@Component
+public class LoggingAspect {
+	public LoggingAspect() {
+		System.out.println("Logging aspect is running");
+	}
+	
+	//Runs before the service method
+	@Before("execution(* com.ymsli.bank.inhouse.service.impl.*.*(..))")
+	public void logBefore(JoinPoint joinPoint) {
+		System.out.println("method started before"+ joinPoint.getSignature().getName());
+	}
+	
+	//Runs after the service methods successful execution
+			@AfterReturning("execution(* com.ymsli.bank.inhouse.service.impl.*.*(..))")
+			public void logAfter(JoinPoint joinPoint) {
+				System.out.println("method started after completion"+ joinPoint.getSignature().getName());
+			}
+	
+	//Runs after the service method exception occurs
+		@AfterThrowing(pointcut="execution(* com.ymsli.bank.inhouse.service.impl.*.*(..))",
+				throwing = "exception")
+		public void logexception(JoinPoint joinPoint, Throwable exception) {
+			System.out.println("method failed"+ joinPoint.getSignature().getName()
+					+ " Reason for failing: "+ exception.getMessage());
+		}
+	
+	
+	
+	
+
+}
