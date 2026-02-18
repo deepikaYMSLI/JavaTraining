@@ -1,25 +1,38 @@
 package com.smartclinic.controller;
 
-import org.springframework.web.bind.annotation.*;
+import com.smartclinic.service.DoctorService;
+import com.smartclinic.service.TokenService;
+
 import org.springframework.http.ResponseEntity;
-import java.util.*;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/doctors")
 public class DoctorController {
 
- @GetMapping("/availability")
- public ResponseEntity<?> getAvailability(
-  @RequestHeader("Authorization") String token,
-  @RequestParam String specialization,
-  @RequestParam String date){
+    private final DoctorService doctorService;
+    private final TokenService tokenService;
 
-  Map<String,String> response=new HashMap<>();
-  response.put("status","success");
-  response.put("specialization",specialization);
-  response.put("date",date);
+    public DoctorController(DoctorService doctorService, TokenService tokenService) {
+        this.doctorService = doctorService;
+        this.tokenService = tokenService;
+    }
 
-  return ResponseEntity.ok(response);
- }
+    // REQUIRED FORMAT
+    @GetMapping("/availability/{doctorId}/{token}")
+    public ResponseEntity<?> getAvailability(
+            @PathVariable Long doctorId,
+            @PathVariable String token) {
 
+        if (!tokenService.validateToken(token)) {
+            return ResponseEntity.status(401)
+                    .body(Map.of("error", "Invalid token"));
+        }
+
+        return ResponseEntity.ok(
+                doctorService.getDoctorAvailability(doctorId)
+        );
+    }
 }

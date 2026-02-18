@@ -1,19 +1,47 @@
 package com.smartclinic.service;
 
+import com.smartclinic.entity.Appointment;
+import com.smartclinic.entity.Doctor;
+import com.smartclinic.entity.Patient;
+import com.smartclinic.repository.AppointmentRepository;
+import com.smartclinic.repository.DoctorRepository;
+import com.smartclinic.repository.PatientRepository;
+
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 public class AppointmentService {
 
- public String bookAppointment(Long doctorId,Long patientId){
+    private final AppointmentRepository appointmentRepository;
+    private final DoctorRepository doctorRepository;
+    private final PatientRepository patientRepository;
 
-  if(doctorId==null)
-   throw new RuntimeException("Doctor not found");
+    public AppointmentService(
+            AppointmentRepository appointmentRepository,
+            DoctorRepository doctorRepository,
+            PatientRepository patientRepository) {
 
-  if(patientId==null)
-   throw new RuntimeException("Patient not found");
+        this.appointmentRepository = appointmentRepository;
+        this.doctorRepository = doctorRepository;
+        this.patientRepository = patientRepository;
+    }
 
-  return "Appointment booked successfully";
- }
+    public Appointment bookAppointment(
+            Long doctorId,
+            Long patientId,
+            LocalDateTime time) {
 
+        Doctor doctor = doctorRepository.findById(doctorId).orElseThrow();
+        Patient patient = patientRepository.findById(patientId).orElseThrow();
+
+        Appointment appointment = new Appointment();
+        appointment.setDoctor(doctor);
+        appointment.setPatient(patient);
+        appointment.setAppointmentTime(time);
+        appointment.setStatus("BOOKED");
+
+        return appointmentRepository.save(appointment);
+    }
 }

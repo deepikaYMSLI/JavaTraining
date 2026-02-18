@@ -1,47 +1,60 @@
 package com.smartclinic.entity;
 
-
-
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name="doctor")
 public class Doctor {
 
- @Id
- @GeneratedValue(strategy=GenerationType.IDENTITY)
- private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
- private String name;
- private String email;
- private String phone;
- private String specialization;
+    private String name;
 
- @Column(name="available_times")
- private String availableTimes;
+    private String specialization;
 
- private String password;
+    private String phone;
 
- public Doctor() {}
+    private String email;
 
- public Long getId(){ return id; }
+    private String password;
 
- public String getName(){ return name; }
- public void setName(String name){ this.name=name; }
+    // REQUIRED FIELD
+    @ElementCollection
+    private List<String> availableTimes;
 
- public String getEmail(){ return email; }
- public void setEmail(String email){ this.email=email; }
+    public Doctor() {}
 
- public String getPhone(){ return phone; }
- public void setPhone(String phone){ this.phone=phone; }
+    public Long getId() {
+        return id;
+    }
 
- public String getSpecialization(){ return specialization; }
- public void setSpecialization(String specialization){ this.specialization=specialization; }
+    public String getName() {
+        return name;
+    }
 
- public String getAvailableTimes(){ return availableTimes; }
- public void setAvailableTimes(String availableTimes){ this.availableTimes=availableTimes; }
+    public String getSpecialization() {
+        return specialization;
+    }
 
- public String getPassword(){ return password; }
- public void setPassword(String password){ this.password=password; }
+    public String getPhone() {
+        return phone;
+    }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public List<String> getAvailableTimes() {
+        return availableTimes;
+    }
+
+    public void setAvailableTimes(List<String> availableTimes) {
+        this.availableTimes = availableTimes;
+    }
 }

@@ -3,7 +3,6 @@ package com.smartclinic.service;
 import com.smartclinic.entity.Doctor;
 import com.smartclinic.repository.DoctorRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -12,32 +11,27 @@ import java.util.List;
 @Service
 public class DoctorService {
 
-    @Autowired
-    private DoctorRepository doctorRepository;
+    private final DoctorRepository doctorRepository;
 
-    // Get all doctors
-    public List<Doctor> getAllDoctors() {
-        return doctorRepository.findAll();
+    public DoctorService(DoctorRepository doctorRepository) {
+        this.doctorRepository = doctorRepository;
     }
 
-    // Save doctor
-    public Doctor saveDoctor(Doctor doctor) {
-        return doctorRepository.save(doctor);
+    public List<String> getDoctorAvailability(Long doctorId) {
+
+        Doctor doctor = doctorRepository.findById(doctorId).orElseThrow();
+
+        return doctor.getAvailableTimes();
     }
 
-    // Get available doctors by specialization
-    public List<Doctor> getAvailableDoctors(String specialization, LocalDate date) {
+    public Doctor validateLogin(String email, String password) {
 
-        // simple logic for assignment
-        return doctorRepository.findAll()
-                .stream()
-                .filter(d -> d.getSpecialization()
-                .equalsIgnoreCase(specialization))
-                .toList();
-    }
+        Doctor doctor = doctorRepository.findByEmail(email).orElse(null);
 
-    // Delete doctor
-    public void deleteDoctor(Long id) {
-        doctorRepository.deleteById(id);
+        if (doctor != null && doctor.getPassword().equals(password)) {
+            return doctor;
+        }
+
+        return null;
     }
 }

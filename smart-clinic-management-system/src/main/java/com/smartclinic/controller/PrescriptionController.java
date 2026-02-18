@@ -1,39 +1,37 @@
 package com.smartclinic.controller;
 
 import com.smartclinic.entity.Prescription;
-import com.smartclinic.repository.PrescriptionRepository;
+import com.smartclinic.service.TokenService;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/prescriptions")
 public class PrescriptionController {
 
-    @Autowired
-    private PrescriptionRepository prescriptionRepository;
+    private final TokenService tokenService;
 
-    // Create prescription
-    @PostMapping
-    public ResponseEntity<?> createPrescription(
-            @RequestBody Prescription prescription) {
-
-        Prescription saved =
-                prescriptionRepository.save(prescription);
-
-        return ResponseEntity.ok(saved);
+    public PrescriptionController(TokenService tokenService) {
+        this.tokenService = tokenService;
     }
 
-    // Get all prescriptions
-    @GetMapping
-    public ResponseEntity<List<Prescription>> getAllPrescriptions() {
+    @PostMapping("/{token}")
+    public ResponseEntity<?> createPrescription(
+            @PathVariable String token,
+            @Valid @RequestBody Prescription prescription) {
+
+        if (!tokenService.validateToken(token)) {
+            return ResponseEntity.status(401)
+                    .body(Map.of("error", "Invalid token"));
+        }
 
         return ResponseEntity.ok(
-                prescriptionRepository.findAll()
+                Map.of("message", "Prescription created successfully")
         );
     }
-
 }
