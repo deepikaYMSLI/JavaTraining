@@ -1,5 +1,0 @@
-package com.ymsli.bank.inhouse.dto;
-
-public class AccountCreateRequest {
-
-}

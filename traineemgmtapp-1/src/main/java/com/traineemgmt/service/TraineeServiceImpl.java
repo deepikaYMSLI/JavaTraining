@@ -1,10 +1,5 @@
 package com.traineemgmt.service;
 
-
-
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,5 +29,5 @@ public class TraineeServiceImpl implements TraineeService {
         } catch (TraineeDataAccessException e) {
             throw new ResourceNotFoundException("Trainee not found with id " + id);
         }
-}
+    }
 }

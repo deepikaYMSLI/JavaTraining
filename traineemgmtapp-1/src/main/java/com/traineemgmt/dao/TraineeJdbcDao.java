@@ -1,7 +1,7 @@
 package com.traineemgmt.dao;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Primary;
+//import org.springframework.context.annotation.Primary;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -63,3 +63,29 @@ public class TraineeJdbcDao implements TraineeDao {
 
     }
 }
+
+
+
+
+
+//public class BookJdbcDao implements BookDao{
+//	
+//	private final JdbcTemplate jdbcTemplate;
+//	// Constructor-based dependency injection
+//    public BookJdbcDao(JdbcTemplate jdbcTemplate) {
+//        this.jdbcTemplate = jdbcTemplate;
+//    }
+//    
+//    
+//    @Override
+//    public void addBook(Books books) {
+//        try {
+//            String sql = "INSERT INTO Book_table(bookName, authorName, price) VALUES (?, ?, ?)";
+//            jdbcTemplate.update(sql, books.getBookName(), books.getAuthorName(), books.getPrice());
+//        } catch (Exception e) {
+//            throw new BookDataAccessException("Error adding Book via JDBC", e);
+//        }
+//    }
+//	
+//	
+//}

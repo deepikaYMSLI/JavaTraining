@@ -1,6 +1,0 @@
-package com.ymsli.bank.inhouse.service;
-
-public interface TransactionService {
-    void deposit(String accountNumber, Double amount, Long clerkId);
-    void withdraw(String accountNumber, Double amount, Long clerkId);
-}

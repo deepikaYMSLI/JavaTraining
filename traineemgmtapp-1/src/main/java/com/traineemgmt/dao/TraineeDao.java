@@ -9,3 +9,4 @@ public interface TraineeDao {
     Trainee findById(int traineeId);
 }
 
+

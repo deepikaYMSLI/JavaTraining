@@ -1,7 +1,5 @@
 package com.app.service;
 
-
-
 import com.model.Book;
 import com.service.BookService;
 
@@ -14,17 +12,7 @@ import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
-//package com.app.service;
-//
-//import com.app.model.Book;
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
-//import org.junit.*;
-//
-//import java.util.List;
-//import java.util.NoSuchElementException;
-//
-//import static org.junit.Assert.*;
+
 
 public class BookServiceTest {
 

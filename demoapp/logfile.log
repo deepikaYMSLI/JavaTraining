@@ -1,0 +1,4 @@
+INFO  | 2026-01-22 11:00:54 | [main] demo.Demo (Demo.java:10) - Code is working till line 10
+ERROR | 2026-01-22 11:00:54 | [main] demo.Demo (Demo.java:14) - String cannot be parsed
+ERROR | 2026-01-22 11:02:59 | [main] demo.Demo (Demo.java:14) - String cannot be parsed
+ERROR | 2026-01-22 11:03:23 | [main] demo.Demo (Demo.java:14) - String cannot be parsed

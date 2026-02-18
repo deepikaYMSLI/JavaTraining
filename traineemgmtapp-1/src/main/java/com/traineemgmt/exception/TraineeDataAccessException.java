@@ -12,3 +12,5 @@ public class TraineeDataAccessException extends RuntimeException {
         super(message, cause);
     }
 }
+
+

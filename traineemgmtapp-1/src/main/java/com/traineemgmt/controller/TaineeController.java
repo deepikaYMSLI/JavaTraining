@@ -17,8 +17,9 @@ public class TaineeController {
     }
 
     @PostMapping
-    public void addTrainee(@RequestBody Trainee trainee) {
+    public Trainee addTrainee(@RequestBody Trainee trainee) {
         traineeService.addTrainee(trainee);
+        return trainee;
     }
 
     @GetMapping("/{id}")
@@ -26,4 +27,6 @@ public class TaineeController {
         return traineeService.getById(id);
     }
 }
+ 
+
 
